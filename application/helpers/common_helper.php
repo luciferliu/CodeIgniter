@@ -78,6 +78,5 @@ if (!function_exists('safe_file_rewrite')) {
             }
             fclose($fp);
         }
-
     }
 }

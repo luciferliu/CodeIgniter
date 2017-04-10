@@ -53,6 +53,8 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
+ // $_SERVER是服务器超级全局变量数组
+ // 根据环境变量CI_ENV，设置环境常量，默认为development
     define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
@@ -66,17 +68,23 @@
 switch (ENVIRONMENT)
 {
     case 'development':
+        // 设置 PHP 的报错级别并返回当前级别。-1 表示显示所有错误
         error_reporting(-1);
+        // 错误回显，一般常用于开发模式，但是很多应用在正式环境中也忘记了关闭此选项。
+        // 错误回显可以暴露出非常多的敏感信息，为攻击者下一步攻击提供便利。推荐关闭此选项。 
         ini_set('display_errors', 1);
     break;
 
     case 'testing':
     case 'production':
+        // 错误不回显
         ini_set('display_errors', 0);
+        // 显示部分错误
         error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
     break;
 
     default:
+        // 环境变量异常，则返回服务不可达 503
         header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
         echo 'The application environment is not set correctly.';
         exit(1); // EXIT_ERROR
@@ -184,11 +192,13 @@ switch (ENVIRONMENT)
  */
 
     // Set the current directory correctly for CLI requests
+    // 命令行应用设置STDIN，切换目录
     if (defined('STDIN'))
     {
         chdir(dirname(__FILE__));
     }
 
+    // 获得system文件路径
     if (($_temp = realpath($system_path)) !== FALSE)
     {
         $system_path = $_temp.DIRECTORY_SEPARATOR;

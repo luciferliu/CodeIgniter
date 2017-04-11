@@ -413,6 +413,7 @@ if ( ! function_exists('show_error'))
             $exit_status = 1; // EXIT_ERROR
         }
 
+        // create exception object
         $_error =& load_class('Exceptions', 'core');
         echo $_error->show_error($heading, $message, 'error_general', $status_code);
         exit($exit_status);
@@ -607,6 +608,7 @@ if ( ! function_exists('_error_handler'))
             set_status_header(500);
         }
 
+        // 如果错误级别不报告，则忽略错误处理函数
         // Should we ignore the error? We'll get the current error_reporting
         // level and add its bits with the severity bits to find out.
         if (($severity & error_reporting()) !== $severity)
@@ -614,9 +616,11 @@ if ( ! function_exists('_error_handler'))
             return;
         }
 
+        // 记录错误日志
         $_error =& load_class('Exceptions', 'core');
         $_error->log_exception($severity, $message, $filepath, $line);
 
+        // 显示错误详情模板
         // Should we display the error?
         if (str_ireplace(array('off', 'none', 'no', 'false', 'null'), '', ini_get('display_errors')))
         {
@@ -713,6 +717,7 @@ if ( ! function_exists('remove_invisible_characters'))
         // carriage return (dec 13) and horizontal tab (dec 09)
         if ($url_encoded)
         {
+            // 匹配大小写
             $non_displayables[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
             $non_displayables[] = '/%1[0-9a-f]/i';    // url encoded 16-31
             $non_displayables[] = '/%7f/i';    // url encoded 127

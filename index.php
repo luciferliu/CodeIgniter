@@ -55,7 +55,18 @@
  */
  // $_SERVER是服务器超级全局变量数组
  // 根据环境变量CI_ENV，设置环境常量，默认为development
-    define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+    //define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+
+    $env = getenv('CI_ENV');
+    if ($env == 'production') {
+        define('ENVIRONMENT', 'production');
+    } else if ($env == 'testing') {
+        define('ENVIRONMENT', 'testing');
+    } else if ($env == 'development' || $env == 'DEV') {
+        define('ENVIRONMENT', 'development');
+    } else {
+        define('ENVIRONMENT', 'production');
+    }
 
 /*
  *---------------------------------------------------------------

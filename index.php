@@ -188,6 +188,7 @@ switch (ENVIRONMENT)
  *
  * Un-comment the $assign_to_config array below to use this feature
  */
+    // 自定义配置值，在获取config.php配置文件后加载
     // $assign_to_config['name_of_config_item'] = 'value of config item';
 
 

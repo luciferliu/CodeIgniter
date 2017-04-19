@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Benchmark Class
+ * 基准测试类
  *
  * This class enables you to mark points and calculate the time difference
  * between them. Memory consumption can also be displayed.

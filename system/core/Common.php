@@ -608,7 +608,7 @@ if ( ! function_exists('_error_handler'))
             set_status_header(500);
         }
 
-        // 如果错误级别不报告，则忽略错误处理函数
+        // 如果错误级别不报告，则忽略错误处理函数；忽略错误，程序继续执行
         // Should we ignore the error? We'll get the current error_reporting
         // level and add its bits with the severity bits to find out.
         if (($severity & error_reporting()) !== $severity)

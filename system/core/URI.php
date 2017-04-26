@@ -108,6 +108,7 @@ class CI_URI {
 		// If query strings are enabled, we don't need to parse any segments.
 		elseif ($this->config->item('enable_query_strings') !== TRUE)
 		{
+		    // 获得安全的URI字符
 			$this->_permitted_uri_chars = $this->config->item('permitted_uri_chars');
 			$protocol = $this->config->item('uri_protocol');
 			empty($protocol) && $protocol = 'REQUEST_URI';
@@ -176,6 +177,7 @@ class CI_URI {
 		}
 
 		// Remove the URL suffix, if present
+		// 删除指定的URI后缀
 		if (($suffix = (string) $this->config->item('url_suffix')) !== '')
 		{
 			$slen = strlen($suffix);
@@ -221,6 +223,7 @@ class CI_URI {
 
 		// parse_url() returns false if no host is present, but the path or query string
 		// contains a colon followed by a number
+		// 解析GET请求参数
 		$uri = parse_url('http://dummy'.$_SERVER['REQUEST_URI']);
 		$query = isset($uri['query']) ? $uri['query'] : '';
 		$uri = isset($uri['path']) ? $uri['path'] : '';
@@ -318,6 +321,7 @@ class CI_URI {
 	protected function _remove_relative_directory($uri)
 	{
 		$uris = array();
+		// 单词分割
 		$tok = strtok($uri, '/');
 		while ($tok !== FALSE)
 		{
@@ -327,7 +331,6 @@ class CI_URI {
 			}
 			$tok = strtok('/');
 		}
-
 		return implode('/', $uris);
 	}
 

@@ -479,7 +479,6 @@ class CI_Output {
 		}
 
 		// --------------------------------------------------------------------
-
 		// Does the $CI object exist?
 		// If not we know we are dealing with a cache file so we'll
 		// simply echo out the data and exit.

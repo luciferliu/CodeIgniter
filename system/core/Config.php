@@ -83,11 +83,13 @@ class CI_Config {
      */
     public function __construct()
     {
+        // 获得配置文件中的所有配置
         $this->config =& get_config();
 
         // Set the base_url automatically if none was provided
         if (empty($this->config['base_url']))
         {
+            // 当前运行脚本所在的服务器的 IP 地址。
             if (isset($_SERVER['SERVER_ADDR']))
             {
                 if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
@@ -98,7 +100,8 @@ class CI_Config {
                 {
                     $server_addr = $_SERVER['SERVER_ADDR'];
                 }
-
+                // SCRIPT_NAME 包含当前脚本的路径 /index.php
+                // SCRIPT_FILENAME 当前执行脚本的绝对路径 F:/wamp/www/CodeIgniter-xShow/index.php
                 $base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
                     .substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
             }

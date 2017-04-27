@@ -62,6 +62,7 @@ function &DB($params = '', $query_builder_override = NULL)
 
 		include($file_path);
 
+		// 加载database.php配置文件
 		// Make packages contain database config files,
 		// given that the controller instance already exists
 		if (class_exists('CI_Controller', FALSE))
@@ -100,7 +101,7 @@ function &DB($params = '', $query_builder_override = NULL)
 		{
 			show_error('You have specified an invalid database connection group ('.$active_group.') in your config/database.php file.');
 		}
-
+        // 获得DB配置参数
 		$params = $db[$active_group];
 	}
 	elseif (is_string($params))
